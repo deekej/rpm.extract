@@ -224,8 +224,8 @@ def run_module():
 
                 for filename in filenames:
                     os.chown(os.path.join(dirpath, filename), uid, gid, follow_symlinks=False)
-        except PermissionError:
-            module.fail_json(msg="failed to change permissions for path: %s [operation not permitted]" % result_dir)
+        except Exception as ex:
+            module.fail_json(msg="failed to change permissions - %s" % ex)
 
     result['changed'] = True
     module.exit_json(**result)
